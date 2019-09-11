@@ -1,0 +1,66 @@
+# Any line that starts with a sharp is a comment and is ignored
+# by Make.
+
+# These lines set variables that control make's default rules.
+# We STRONGLY recommend putting "-Wall -pedantic -g3" in your CFLAGS.
+CC=gcc
+CFLAGS=-std=c99 -Wall -pedantic -g3
+
+# The next line is a dependency line.
+# It says that if somebody types "runslow"
+# runs slowsort
+runslow: slowsort
+
+# The next line is a dependency line.
+# It says that if somebody types "runfast"
+# runs fastsort
+runslow: fastsort
+
+# The next line is a dependency line.
+# It says that if somebody types "runbenchmark"
+# runs both runslow and runfast.
+# By default the left-hand-side of the first dependency is what you
+# get if you just type "make" with no arguments.
+runbenchmark: slowsort fastsort
+
+# How do we make slowsort?
+# The dependency line says you need to first make slowsort.o
+slowsort: slowsort.o
+	# Subsequent lines starting with a TAB character give
+	# commands to execute.
+	# This command uses make built-in variables to avoid
+	# retyping (and getting things wrong):
+	#  $@ = target slowsort
+	#  $^ = dependencies slowsort.o
+	$(CC) $(CFLAGS) -o $@ $^
+	echo "I just built insertion sort!  Hooray!"
+
+# How do we make fastsort?
+# The dependency line says you need to first make fastsort.o
+fastsort: fastsort.o
+        # Subsequent lines starting with a TAB character give
+        # commands to execute.
+        # This command uses make built-in variables to avoid
+        # retyping (and getting things wrong):
+        #  $@ = target fastsort
+        #  $^ = dependencies fastsort.o
+	$(CC) $(CFLAGS) -o $@ $^
+	echo "I just built quick sort!  Hooray!"
+
+# Here we are saying that slowsort.o and fastsort.o
+#  should be rebuilt whenever their corresponding source file
+# There are no commands attached to these dependency lines, so
+#  make will have to figure out how to do that somewhere else
+#  (probably from the builtin .c -> .o rule).
+slowsort.o: slowsort.c 
+fastsort.o: fastsort.c
+
+# This lets you type "make clean" and get rid of anything you can
+# rebuild.  The $(RM) variable is predefined to "rm -f"
+slowclean:
+	$(RM) slowsort *.o
+fastclean:
+	$(RM) fastsort *.o
+cleanall:
+	$(RM)  *.o
+

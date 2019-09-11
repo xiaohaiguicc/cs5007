@@ -1,0 +1,18 @@
+indexType: movie
+3 items
+	Street Boys
+	Manpower
+	The Art Academy: A History of Memphis College of Art
+indexType: tvSeries
+1 items
+	Sephora Beauty Academy
+indexType: short
+1 items
+	A Cougar's Den
+indexType: tvEpisode
+5 items
+	Of Moles and Men
+	St. Louis Cardinals vs. Seattle Seahawks
+	Wendigo Apocalypse
+	Jonathan Kite
+	Chicago Bears vs. Los Angeles Rams
